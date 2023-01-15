@@ -10,9 +10,15 @@ $tls10check = ( $tls10 | Test-Path )
 #$ssl2check = ( $ssl2 | Test-Path )
 #$ssl3check = ( $ssl3 | Test-Path )
 
-if ($tls10check -eq $false) {New-Item $tls10 -force; continue}
-else {New-ItemProperty -Path $tls10 -name 'Enabled' -value '0' -Type 'DWORD'
-	New-ItemProperty -Path $tls10 -name 'DisabledByDefault' -value '1' -Type 'DWORD'}
+if ($tls10check -eq $true) {
+	New-ItemProperty -Path $tls10 -name 'Enabled' -value '0' -Type 'DWORD'
+	New-ItemProperty -Path $tls10 -name 'DisabledByDefault' -value '1' -Type 'DWORD'
+}
+else {
+	New-Item $tls10 -force
+	New-ItemProperty -Path $tls10 -name 'Enabled' -value '0' -Type 'DWORD'
+	New-ItemProperty -Path $tls10 -name 'DisabledByDefault' -value '1' -Type 'DWORD'
+}
 
 
 
