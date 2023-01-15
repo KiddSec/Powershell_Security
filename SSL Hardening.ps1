@@ -10,12 +10,22 @@ $tls10check = ( $tls10 | Test-Path )
 #$ssl2check = ( $ssl2 | Test-Path )
 #$ssl3check = ( $ssl3 | Test-Path )
 
-if ($tls10check -eq $true) {
+if ($tls10check -eq $false) {
+	New-Item $tls10 -force
 	New-ItemProperty -Path $tls10 -name 'Enabled' -value '0' -Type 'DWORD'
 	New-ItemProperty -Path $tls10 -name 'DisabledByDefault' -value '1' -Type 'DWORD'
 }
+elseif ($tls10check[1] -eq $false) {
+	New-Item $tls10[1] -force
+	New-ItemProperty -Path $tls10[1] -name 'Enabled' -value '0' -Type 'DWORD'
+	New-ItemProperty -Path $tls10[1] -name 'DisabledByDefault' -value '1' -Type 'DWORD'
+}
+elseif ($tls10check[0] -eq $false) {
+	New-Item $tls10[0] -force
+	New-ItemProperty -Path $tls10[0] -name 'Enabled' -value '0' -Type 'DWORD'
+	New-ItemProperty -Path $tls10[0] -name 'DisabledByDefault' -value '1' -Type 'DWORD'
+}
 else {
-	New-Item $tls10 -force
 	New-ItemProperty -Path $tls10 -name 'Enabled' -value '0' -Type 'DWORD'
 	New-ItemProperty -Path $tls10 -name 'DisabledByDefault' -value '1' -Type 'DWORD'
 }
